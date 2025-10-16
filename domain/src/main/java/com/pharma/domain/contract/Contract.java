@@ -59,6 +59,15 @@ public final class Contract {
         );
     }
 
+    public static Contract reconstitute(UUID id,
+                                        UUID clientId,
+                                        LocalDate startDate,
+                                        LocalDate endDate,
+                                        BigDecimal costAmount,
+                                        OffsetDateTime updateDate) {
+        return new Contract(id, clientId, startDate, endDate, costAmount, updateDate);
+    }
+
     public void updateCost(BigDecimal newAmount, Clock clock) {
         Objects.requireNonNull(clock, "clock is required");
         this.costAmount = validateAmount(newAmount);
