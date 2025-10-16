@@ -17,10 +17,6 @@ ApiFactory is a REST API backend for managing insurance clients and their contra
 
 - ![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)
 - ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.6-green?logo=springboot)
-- ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-3.1.6-green?logo=spring)
-- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?logo=postgresql)
-- ![Maven](https://img.shields.io/badge/Maven-3.9+-red?logo=apachemaven)
-- ![Lombok](https://img.shields.io/badge/Lombok-1.18+-orange)
 - ![Docker](https://img.shields.io/badge/Docker-Compose-blue?logo=docker)
 
 
