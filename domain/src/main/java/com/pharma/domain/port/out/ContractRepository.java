@@ -1,0 +1,22 @@
+package com.pharma.domain.port.out;
+
+import com.pharma.domain.contract.Contract;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
+
+public interface ContractRepository {
+
+    Contract save(Contract contract);
+
+    List<Contract> findActiveByClientId(UUID clientId, LocalDate today);
+
+    List<Contract> findByClientIdAndUpdatedAfter(UUID clientId, OffsetDateTime updatedAfter);
+
+    BigDecimal sumActiveCostByClientId(UUID clientId, LocalDate today);
+
+    void closeAllForClient(UUID clientId, LocalDate today);
+}
