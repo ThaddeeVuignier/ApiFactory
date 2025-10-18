@@ -1,15 +1,14 @@
 ﻿services:
   db:
     image: postgres:15
-    container_name: postgres-pharma
+    container_name: postgres-vaudoise
     environment:
-      POSTGRES_DB: pharma_db
-      POSTGRES_USER: pharma_user
-      POSTGRES_PASSWORD: pharma_pass
+      POSTGRES_DB: vaudoise_db
+      POSTGRES_USER: vaudoise_user
+      POSTGRES_PASSWORD: vaudoise_pass
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 volumes:
   postgres_data:
