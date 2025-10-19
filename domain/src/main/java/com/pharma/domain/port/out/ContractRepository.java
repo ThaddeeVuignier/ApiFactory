@@ -14,7 +14,7 @@ public interface ContractRepository {
     Contract save(Contract contract);
     Optional<Contract> findById(UUID id);
     List<Contract> findActiveByClientId(UUID clientId, LocalDate today);
-    List<Contract> findByClientIdAndUpdatedAfter(UUID clientId, OffsetDateTime updatedAfter);
+    List<Contract> findActiveByClientIdUpdatedAfter(UUID clientId, LocalDate today, OffsetDateTime updatedAfter);
     BigDecimal sumActiveCostByClientId(UUID clientId, LocalDate today);
     void closeAllForClient(UUID clientId, LocalDate today);
 }

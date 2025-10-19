@@ -60,18 +60,14 @@ public class ContractService implements
     @Transactional(readOnly = true)
     public List<Contract> listByClient(GetContractsQuery query) {
         ensureClientExists(query.clientId());
-
         LocalDate today = LocalDate.now(clock);
 
         if (query.updatedAfter() != null) {
-            return contractRepo.findByClientIdAndUpdatedAfter(
-                    query.clientId(),
-                    query.updatedAfter()
-            );
+            return contractRepo.findActiveByClientIdUpdatedAfter(query.clientId(), today, query.updatedAfter());
         }
-
         return contractRepo.findActiveByClientId(query.clientId(), today);
     }
+
 
     @Override
     public Contract updateCost(UpdateContractCostCommand cmd) {
