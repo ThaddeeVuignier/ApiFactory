@@ -9,18 +9,13 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record CreateContractRequest(
-        @NotNull(message = "Client ID is required")
-        UUID clientId,
-
         LocalDate startDate,
-
         LocalDate endDate,
-
         @NotNull(message = "Cost amount is required")
         @DecimalMin(value = "0.0", inclusive = true, message = "Cost must be >= 0")
         BigDecimal costAmount
 ) {
-    public CreateContractCommand toCommand() {
-        return new CreateContractCommand(clientId, startDate, endDate, costAmount);
+    public CreateContractCommand toCommand(UUID clientIdFromPath) {
+        return new CreateContractCommand(clientIdFromPath, startDate, endDate, costAmount);
     }
 }

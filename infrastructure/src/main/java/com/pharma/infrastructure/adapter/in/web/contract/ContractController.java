@@ -37,9 +37,10 @@ public class ContractController {
     public ContractResponse create(
             @PathVariable UUID clientId,
             @Valid @RequestBody CreateContractRequest request) {
-        Contract contract = createContract.create(request.toCommand());
+        Contract contract = createContract.create(request.toCommand(clientId));
         return ContractResponse.from(contract);
     }
+
 
     @GetMapping
     public ResponseEntity<List<ContractResponse>> listActive(
