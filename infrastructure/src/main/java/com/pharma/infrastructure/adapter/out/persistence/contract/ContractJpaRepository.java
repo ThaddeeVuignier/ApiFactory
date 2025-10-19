@@ -25,14 +25,17 @@ public interface ContractJpaRepository extends JpaRepository<ContractEntity, UUI
     );
 
     @Query("""
-        SELECT c FROM ContractEntity c 
-        WHERE c.clientId = :clientId 
-        AND c.updatedAt > :updatedAfter
-        """)
-    List<ContractEntity> findByClientIdAndUpdatedAfter(
+  SELECT c FROM ContractEntity c
+  WHERE c.clientId = :clientId
+    AND (c.endDate IS NULL OR c.endDate > :today)
+    AND c.updatedAt > :updatedAfter
+  """)
+    List<ContractEntity> findActiveByClientIdUpdatedAfter(
             @Param("clientId") UUID clientId,
+            @Param("today") LocalDate today,
             @Param("updatedAfter") OffsetDateTime updatedAfter
     );
+
 
     @Query("""
         SELECT COALESCE(SUM(c.costAmount), 0) 

@@ -41,12 +41,13 @@ public class ContractJpaAdapter implements ContractRepository {
     }
 
     @Override
-    public List<Contract> findByClientIdAndUpdatedAfter(UUID clientId, OffsetDateTime updatedAfter) {
-        return jpaRepository.findByClientIdAndUpdatedAfter(clientId, updatedAfter)
+    public List<Contract> findActiveByClientIdUpdatedAfter(UUID clientId, LocalDate today, OffsetDateTime updatedAfter) {
+        return jpaRepository.findActiveByClientIdUpdatedAfter(clientId, today, updatedAfter)
                 .stream()
                 .map(ContractEntity::toDomain)
                 .toList();
     }
+
 
     @Override
     public BigDecimal sumActiveCostByClientId(UUID clientId, LocalDate today) {

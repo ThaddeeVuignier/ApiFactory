@@ -33,7 +33,7 @@ ApiFactory is a REST API backend for managing insurance clients and their contra
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/YOUR_USERNAME/ApiFactory.git
+   git clone https://github.com/ThaddeeVuignier/ApiFactory.git
    cd ApiFactory
    ```
 
@@ -52,6 +52,6 @@ ApiFactory is a REST API backend for managing insurance clients and their contra
    ./mvnw -pl infrastructure spring-boot:run
    ```
 
-API available at: `http://localhost:8080`
+API available at: `http://localhost:8080/swagger-ui/index.html`
 
 ## Usage

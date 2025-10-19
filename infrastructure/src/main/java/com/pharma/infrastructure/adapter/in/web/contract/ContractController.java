@@ -18,9 +18,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.time.Clock;
 
 @RestController
 @RequestMapping("/api/clients/{clientId}/contracts")
@@ -31,32 +35,37 @@ public class ContractController {
     private final ListClientContractsUseCase listContracts;
     private final UpdateContractCostUseCase updateCost;
     private final SumActiveCostUseCase sumActiveCost;
+    private final Clock clock;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ContractResponse create(
             @PathVariable UUID clientId,
             @Valid @RequestBody CreateContractRequest request) {
-        Contract contract = createContract.create(request.toCommand());
+        Contract contract = createContract.create(request.toCommand(clientId));
         return ContractResponse.from(contract);
     }
+
 
     @GetMapping
     public ResponseEntity<List<ContractResponse>> listActive(
             @PathVariable UUID clientId,
             @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-            OffsetDateTime updatedAfter) {
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate updatedAfter) {
 
-        GetContractsQuery query = new GetContractsQuery(clientId, updatedAfter);
-        List<Contract> contracts = listContracts.listByClient(query);
+        GetContractsQuery query = new GetContractsQuery(
+                clientId,
+                updatedAfter == null
+                        ? null
+                        : ZonedDateTime.of(updatedAfter, LocalTime.MIN, clock.getZone()).toOffsetDateTime()
+        );
 
-        List<ContractResponse> response = contracts.stream()
+        List<ContractResponse> res = listContracts.listByClient(query).stream()
                 .map(ContractResponse::from)
                 .toList();
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(res);
     }
+
 
     @GetMapping("/total-cost")
     public ResponseEntity<TotalCostResponse> getTotalCost(@PathVariable UUID clientId) {

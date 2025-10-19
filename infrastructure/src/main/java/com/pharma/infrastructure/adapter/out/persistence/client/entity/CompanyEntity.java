@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CompanyEntity extends ClientEntity {
 
-    @Column(name = "company_identifier", nullable = false, unique = true)
+    @Column(name = "company_identifier", unique = true, nullable = true)
     private String companyIdentifier;
 
     @Override
