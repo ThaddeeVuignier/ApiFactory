@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS contracts (
     updated_at   timestamptz   NOT NULL
     );
 
--- index attendus par ton JPA
 CREATE INDEX IF NOT EXISTS idx_contract_client_id  ON contracts(client_id);
 CREATE INDEX IF NOT EXISTS idx_contract_end_date   ON contracts(end_date);
 CREATE INDEX IF NOT EXISTS idx_contract_updated_at ON contracts(updated_at);
